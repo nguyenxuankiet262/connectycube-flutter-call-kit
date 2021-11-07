@@ -53,7 +53,7 @@ class ConnectycubeFlutterCallKitPlugin : FlutterPlugin, MethodCallHandler,
                 try {
                     var context = applicationContext!!.getApplicationContext()
                     var packageName = context?.getPackageName()
-                    var focusIntent = context?.getPackageManager()?.getLaunchIntentForPackage(packageName)?.cloneFilter()
+                    var focusIntent = context?.getPackageManager()?.getLaunchIntentForPackage(packageName)?.cloneFilter()!!
                     var isOpened = mainActivity != null
                     if (isOpened) {
                         focusIntent?.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
