@@ -51,11 +51,9 @@ class ConnectycubeFlutterCallKitPlugin : FlutterPlugin, MethodCallHandler,
         when (call.method) {
             "backToForeground" -> {
                 try {
-                    @SuppressLint("WrongConstant")
-                    // var context = getAppContext()
-                    var context = applicationContext!!;
-                    var packageName = context.getPackageName()
-                    var focusIntent = context.getPackageManager().getLaunchIntentForPackage(packageName).cloneFilter()
+                    var context = getAppContext()
+                    var packageName = context?.getPackageName()
+                    var focusIntent = context?.getPackageManager()?.getLaunchIntentForPackage(packageName).cloneFilter()
                     var isOpened = mainActivity != null
                     if (isOpened) {
                         focusIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
