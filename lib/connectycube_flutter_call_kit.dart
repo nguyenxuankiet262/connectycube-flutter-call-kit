@@ -65,8 +65,15 @@ class ConnectycubeFlutterCallKit {
     _channel.setMethodCallHandler(_handleMethod);
   }
 
-  static void backToForeground() {
-    _channel.invokeListMethod("backToForeground");
+  static Future<bool> backToForeground() async {
+    if (Platform.isIOS) {
+      return false;
+    }
+    var resp = await _channel.invokeMethod<bool>('backToForeground', <String, dynamic>{});
+    if (resp != null) {
+      return resp;
+    }
+    return false;
   }
 
   static Future<void> showCallNotification({
