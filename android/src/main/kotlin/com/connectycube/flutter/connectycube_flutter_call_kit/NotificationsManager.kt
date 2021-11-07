@@ -33,12 +33,10 @@ fun showCallNotification(
 
     val intent = getLaunchIntent(context)
 
-    var fullScreenIntent = new Intent(this, IncomingCallActivity.class)
-
     val pendingIntent = PendingIntent.getActivity(
         context,
         callId.hashCode(),
-        fullScreenIntent,
+        intent,
         PendingIntent.FLAG_UPDATE_CURRENT
     )
 
@@ -131,10 +129,10 @@ fun createCallNotification(
         .setAutoCancel(true)
         .setOngoing(true)
         .setCategory(NotificationCompat.CATEGORY_CALL)
+        .setContentIntent(pendingIntent)
         .setSound(ringtone)
         .setPriority(NotificationCompat.PRIORITY_MAX)
         .setTimeoutAfter(60000)
-        .setFullScreenIntent(fullScreenPendingIntent, true);
     return notificationBuilder
 }
 

@@ -49,6 +49,34 @@ class ConnectycubeFlutterCallKitPlugin : FlutterPlugin, MethodCallHandler,
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         when (call.method) {
+            "backToForeground" -> {
+                try {
+                    @SuppressLint("WrongConstant")
+                    // var context = getAppContext()
+                    var context = applicationContext!!;
+                    var packageName = context.getPackageName()
+                    var focusIntent = context.getPackageManager().getLaunchIntentForPackage(packageName).cloneFilter()
+                    var isOpened = mainActivity != null
+                    if (isOpened) {
+                        focusIntent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+                        mainActivity.startActivity(focusIntent)
+                    } else {
+                        focusIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK +
+                                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED +
+                                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD +
+                                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+                        if (mainActivity != null) {
+                            mainActivity.startActivity(focusIntent)
+                        } else {
+                            context.startActivity(focusIntent)
+                        }
+                    }
+                    result.success(isOpened)
+                }
+                catch (e: Exception) {
+                    result.error("ERROR", e.message, "")
+                }
+            }
             "showCallNotification" -> {
                 try {
                     @Suppress("UNCHECKED_CAST") val arguments: Map<String, Any> =
@@ -196,6 +224,8 @@ class ConnectycubeFlutterCallKitPlugin : FlutterPlugin, MethodCallHandler,
 
         }
     }
+
+
 
     private fun registerCallStateReceiver() {
         localBroadcastManager = LocalBroadcastManager.getInstance(applicationContext!!)
