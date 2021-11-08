@@ -26,7 +26,7 @@ fun cancelCallNotification(context: Context, callId: String) {
 }
 
 fun showCallNotification(
-    context: Context, callId: String, callType: Int, callInitiatorId: Int,
+    context: Context, callId: String, callType: Int, callInitiatorId: Int, photoUrl: String,
     callInitiatorName: String, callOpponents: ArrayList<Int>, userInfo: String
 ) {
     val notificationManager = NotificationManagerCompat.from(context)
@@ -101,6 +101,26 @@ fun showCallNotification(
 
     // Set notification color accent
     setNotificationColor(context, builder)
+
+    val futureTarget = Glide.with(this)
+            .asBitmap()
+            .load(photoUrl)
+            .submit()
+
+    val bitmap =
+            try {
+                futureTarget.get()
+            }
+            catch (e: InterruptedException) {
+                //set bitmap fallback in case of glide get fail on a 404 response
+            }
+            catch (e: ExecutionException) {
+                //set bitmap fallback in case of glide get fail on a 404 response
+            }
+
+    notificationBuilder.setLargeIcon(bitmap)
+
+    Glide.with(this).clear(futureTarget)
 
     createCallNotificationChannel(notificationManager, ringtone)
 
