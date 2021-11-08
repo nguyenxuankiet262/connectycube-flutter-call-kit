@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.RingtoneManager
@@ -14,7 +15,9 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.bumptech.glide.Glide
 import com.connectycube.flutter.connectycube_flutter_call_kit.utils.getColorizedText
+import java.util.concurrent.ExecutionException
 
 const val CALL_CHANNEL_ID = "calls_channel_id"
 const val CALL_CHANNEL_NAME = "Calls"
@@ -102,25 +105,24 @@ fun showCallNotification(
     // Set notification color accent
     setNotificationColor(context, builder)
 
-    val futureTarget = Glide.with(this)
+    val futureTarget = Glide.with(context)
             .asBitmap()
             .load(photoUrl)
             .submit()
 
-    val bitmap =
-            try {
-                futureTarget.get()
-            }
-            catch (e: InterruptedException) {
-                //set bitmap fallback in case of glide get fail on a 404 response
-            }
-            catch (e: ExecutionException) {
-                //set bitmap fallback in case of glide get fail on a 404 response
-            }
+    try {
+        builder.setLargeIcon(futureTarget.get())
 
-    notificationBuilder.setLargeIcon(bitmap)
+    }
+    catch (e: InterruptedException) {
+        //set bitmap fallback in case of glide get fail on a 404 response
+    }
+    catch (e: ExecutionException) {
+        //set bitmap fallback in case of glide get fail on a 404 response
+    }
 
-    Glide.with(this).clear(futureTarget)
+
+    Glide.with(context).clear(futureTarget)
 
     createCallNotificationChannel(notificationManager, ringtone)
 
