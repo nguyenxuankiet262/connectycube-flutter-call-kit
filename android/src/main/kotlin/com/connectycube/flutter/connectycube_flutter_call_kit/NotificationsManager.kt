@@ -105,24 +105,24 @@ fun showCallNotification(
     // Set notification color accent
     setNotificationColor(context, builder)
 
-    val futureTarget = Glide.with(context)
-            .asBitmap()
-            .load(photoUrl)
-            .submit()
+    // val futureTarget = Glide.with(context)
+    //         .asBitmap()
+    //         .load(photoUrl)
+    //         .submit()
 
-    try {
-        builder.setLargeIcon(futureTarget.get())
+    // try {
+    //     builder.setLargeIcon(futureTarget.get())
 
-    }
-    catch (e: InterruptedException) {
-        //set bitmap fallback in case of glide get fail on a 404 response
-    }
-    catch (e: ExecutionException) {
-        //set bitmap fallback in case of glide get fail on a 404 response
-    }
+    // }
+    // catch (e: InterruptedException) {
+    //     //set bitmap fallback in case of glide get fail on a 404 response
+    // }
+    // catch (e: ExecutionException) {
+    //     //set bitmap fallback in case of glide get fail on a 404 response
+    // }
 
 
-    Glide.with(context).clear(futureTarget)
+    // Glide.with(context).clear(futureTarget)
 
     createCallNotificationChannel(notificationManager, ringtone)
 
