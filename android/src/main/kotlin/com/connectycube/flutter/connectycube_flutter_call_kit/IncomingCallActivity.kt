@@ -138,7 +138,7 @@ class IncomingCallActivity : Activity() {
         var caller = obj?.getString("caller")!!
         Log.d("aloalo2", caller)
         var callerObj = JSONObject(caller);
-        
+
         Log.d("aloalo3", callerObj?.toString())
         var callerAvatar = callerObj?.getString("avatar")!!
         Glide.with(this).load(callerAvatar)
@@ -146,7 +146,7 @@ class IncomingCallActivity : Activity() {
         Glide.with(this).load(callerAvatar)
             .into(avatar)
         callTitleTxt.text = callInitiatorName
-        price.text = "${callerObj?.getString("pay_per_minute")}Dool/min"
+        price.text = "${obj?.getString("pay_per_minute")}Dool/min"
     }
 
     // calls from layout file
