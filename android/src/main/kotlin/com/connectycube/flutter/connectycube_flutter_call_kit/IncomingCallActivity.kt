@@ -135,16 +135,16 @@ class IncomingCallActivity : Activity() {
         val avatar: CircleImageView =
             findViewById(resources.getIdentifier("user_avatar", "id", packageName))
         var obj = JSONObject(callUserInfo)
-        Log.v("aloalo1", obj.toString())
-        var caller = obj.getString("caller")
+        Log.v("aloalo1", obj?.toString())
+        var caller = obj?.getString("caller")
         var callerObj = JSONObject(caller)
-        var callerAvatar = callerObj.getString("avatar")
+        var callerAvatar = callerObj?.getString("avatar")
         Glide.with(this).load(callerAvatar)
             .into(background)
         Glide.with(this).load(callerAvatar)
             .into(avatar)
         callTitleTxt.text = callInitiatorName
-        price.text = "${callerObj.getString("pay_per_minute")}Dool/min"
+        price.text = "${callerObj?.getString("pay_per_minute")}Dool/min"
     }
 
     // calls from layout file
