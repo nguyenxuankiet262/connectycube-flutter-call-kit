@@ -134,9 +134,12 @@ class IncomingCallActivity : Activity() {
         val avatar: CircleImageView =
             findViewById(resources.getIdentifier("user_avatar", "id", packageName))
         var obj = JSONObject(callUserInfo)
-        Log.v("aloalo1", obj?.toString())
-        var callerObj = obj?.getJSONObject("caller")!!
-        Log.v("aloalo2", callerObj?.toString())
+        Log.d("aloalo1", obj?.toString())
+        var caller = obj?.getString("caller")!!
+        Log.d("aloalo2", caller)
+        var callerObj = JSONObject(caller);
+        
+        Log.d("aloalo3", callerObj?.toString())
         var callerAvatar = callerObj?.getString("avatar")!!
         Glide.with(this).load(callerAvatar)
             .into(background)
