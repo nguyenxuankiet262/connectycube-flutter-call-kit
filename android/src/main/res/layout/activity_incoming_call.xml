@@ -8,7 +8,7 @@
     >
 
     <ImageView
-
+        android:id="@+id/user_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
@@ -42,6 +42,7 @@
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_avatar"
                 android:layout_width="104dp"
                 android:layout_height="104dp"
                 android:layout_centerHorizontal="true"
@@ -68,6 +69,7 @@
                 android:text="Calling..." />
         </LinearLayout>
         <TextView
+            android:id="@+id/user_price_txt"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

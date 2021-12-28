@@ -9,11 +9,16 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
+import org.json.JSONObject
 
 
 fun createStartIncomingScreenIntent(
@@ -116,12 +121,30 @@ class IncomingCallActivity : Activity() {
         callInitiatorName = intent.getStringExtra(EXTRA_CALL_INITIATOR_NAME)
         callOpponents = intent.getIntegerArrayListExtra(EXTRA_CALL_OPPONENTS)
         callUserInfo = intent.getStringExtra(EXTRA_CALL_USER_INFO)
+        Log.v("aloalo", callUserInfo)
     }
 
     private fun initUi() {
         val callTitleTxt: TextView =
             findViewById(resources.getIdentifier("user_name_txt", "id", packageName))
+        val price: TextView =
+            findViewById(resources.getIdentifier("user_price_txt", "id", packageName))
+
+        val background: ImageView =
+            findViewById(resources.getIdentifier("user_background", "id", packageName))
+        val avatar: CircleImageView =
+            findViewById(resources.getIdentifier("user_avatar", "id", packageName))
+        var obj = JSONObject(callUserInfo)
+        Log.v("aloalo1", obj.toString())
+        var caller = obj.getString("caller")
+        var callerObj = JSONObject(caller)
+        var callerAvatar = callerObj.getString("avatar")
+        Glide.with(this).load(callerAvatar)
+            .into(background)
+        Glide.with(this).load(callerAvatar)
+            .into(avatar)
         callTitleTxt.text = callInitiatorName
+        price.text = "${callerObj.getString("pay_per_minute")}Dool/min"
     }
 
     // calls from layout file
