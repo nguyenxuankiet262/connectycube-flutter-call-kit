@@ -135,8 +135,8 @@ class IncomingCallActivity : Activity() {
             findViewById(resources.getIdentifier("user_avatar", "id", packageName))
         var obj = JSONObject(callUserInfo)
         Log.v("aloalo1", obj?.toString())
-        var caller = obj?.getString("caller")!!
-        var callerObj = JSONObject(caller)
+        var callerObj = obj?.getJSONObject("caller")!!
+        Log.v("aloalo2", callerObj?.toString())
         var callerAvatar = callerObj?.getString("avatar")!!
         Glide.with(this).load(callerAvatar)
             .into(background)
