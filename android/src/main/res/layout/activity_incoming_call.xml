@@ -37,8 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-
+            android:gravity="center"
+            android:layout_weight="1"
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -67,18 +67,19 @@
                 android:textColor="@android:color/white"
                 android:textSize="16dp"
                 android:text="Calling..." />
+            <TextView
+                android:id="@+id/user_price_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textColor="@android:color/white"
+                android:textSize="18dp"
+                android:text="20$/sec" />
         </LinearLayout>
-        <TextView
-            android:id="@+id/user_price_txt"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:padding="8dp"
-            android:textColor="@android:color/white"
-            android:textSize="18dp"
-            android:text="20$/sec" />
+
         <RelativeLayout
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom"
