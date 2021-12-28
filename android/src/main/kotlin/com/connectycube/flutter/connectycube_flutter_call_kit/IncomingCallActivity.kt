@@ -121,7 +121,6 @@ class IncomingCallActivity : Activity() {
         callInitiatorName = intent.getStringExtra(EXTRA_CALL_INITIATOR_NAME)
         callOpponents = intent.getIntegerArrayListExtra(EXTRA_CALL_OPPONENTS)
         callUserInfo = intent.getStringExtra(EXTRA_CALL_USER_INFO)
-        Log.v("aloalo", callUserInfo)
     }
 
     private fun initUi() {
@@ -136,9 +135,9 @@ class IncomingCallActivity : Activity() {
             findViewById(resources.getIdentifier("user_avatar", "id", packageName))
         var obj = JSONObject(callUserInfo)
         Log.v("aloalo1", obj?.toString())
-        var caller = obj?.getString("caller")
+        var caller = obj?.getString("caller")!!
         var callerObj = JSONObject(caller)
-        var callerAvatar = callerObj?.getString("avatar")
+        var callerAvatar = callerObj?.getString("avatar")!!
         Glide.with(this).load(callerAvatar)
             .into(background)
         Glide.with(this).load(callerAvatar)
