@@ -133,10 +133,18 @@ class IncomingCallActivity : Activity() {
             findViewById(resources.getIdentifier("user_background", "id", packageName))
         val avatar: CircleImageView =
             findViewById(resources.getIdentifier("user_avatar", "id", packageName))
+        var icCall: ImageView = findViewById(resources.getIdentifier("ic_call", "id", packageName))
         var obj = JSONObject(callUserInfo)
+        var action = obj?.getInt("action")
         var caller = obj?.getString("caller")!!
         var callerObj = JSONObject(caller);
         var callerAvatar = callerObj?.getString("avatar")!!
+        if(action == 22){
+            var uri = "@drawable/ic_call"
+            var imageResource = resources.getIdentifier(uri, null, packageName)
+            var res = applicationContext.getDrawable(imageResource);
+            icCall.setImageDrawable(res)
+        }
         Glide.with(this).load(callerAvatar)
             .into(background)
         Glide.with(this).load(callerAvatar)

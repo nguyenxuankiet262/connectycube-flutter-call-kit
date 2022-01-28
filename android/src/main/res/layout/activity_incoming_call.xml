@@ -141,13 +141,14 @@
                         android:background="@drawable/selector_call_start"
                         android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:onClick="onStartCall"
+                        <ImageView
+                            android:id="@+id/ic_call"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:onClick="onStartCall"
 
-                        android:src="@drawable/ic_video"
-                        tools:ignore="ContentDescription" />
+                            android:src="@drawable/ic_video"
+                            tools:ignore="ContentDescription" />
                     </RelativeLayout>
                     <TextView
                         android:layout_width="wrap_content"
