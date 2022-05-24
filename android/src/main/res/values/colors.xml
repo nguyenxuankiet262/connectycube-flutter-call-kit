@@ -3,4 +3,5 @@
     <color name="decline_call_btn">#CF3232</color>
     <color name="accept_call_btn">#32CF5E</color>
     <color name="call_notification_color_accent">#32CF5E</color>
+    <color name="background">#070F1D</color>
 </resources>

@@ -150,7 +150,7 @@ class IncomingCallActivity : Activity() {
         Glide.with(this).load(callerAvatar)
             .into(avatar)
         callTitleTxt.text = callInitiatorName
-        price.text = "${obj?.getString("pay_per_minute")}Dool/min"
+        price.text = "${obj?.getString("pay_per_minute")} Dool / min"
     }
 
     // calls from layout file
