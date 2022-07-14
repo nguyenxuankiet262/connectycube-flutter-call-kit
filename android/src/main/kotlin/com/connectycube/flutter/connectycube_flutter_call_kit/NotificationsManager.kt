@@ -175,14 +175,17 @@ fun addCallRejectAction(
     bundle.putString(EXTRA_CALL_INITIATOR_NAME, callInitiatorName)
     bundle.putIntegerArrayList(EXTRA_CALL_OPPONENTS, opponents)
     bundle.putString(EXTRA_CALL_USER_INFO, userInfo)
-
+    val flags = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+        else -> FLAG_UPDATE_CURRENT
+    }
     val declinePendingIntent: PendingIntent = PendingIntent.getBroadcast(
         context,
         callId.hashCode(),
         Intent(context, EventReceiver::class.java)
             .setAction(ACTION_CALL_REJECT)
             .putExtras(bundle),
-        PendingIntent.FLAG_UPDATE_CURRENT
+        flags
     )
     val declineAction: NotificationCompat.Action = NotificationCompat.Action.Builder(
         context.resources.getIdentifier(
@@ -215,14 +218,17 @@ fun addCallAcceptAction(
     bundle.putString(EXTRA_CALL_INITIATOR_NAME, callInitiatorName)
     bundle.putIntegerArrayList(EXTRA_CALL_OPPONENTS, opponents)
     bundle.putString(EXTRA_CALL_USER_INFO, userInfo)
-
+    val flags = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+        else -> FLAG_UPDATE_CURRENT
+    }
     val acceptPendingIntent: PendingIntent = PendingIntent.getBroadcast(
         context,
         callId.hashCode(),
         Intent(context, EventReceiver::class.java)
             .setAction(ACTION_CALL_ACCEPT)
             .putExtras(bundle),
-        PendingIntent.FLAG_UPDATE_CURRENT
+        flags
     )
     val acceptAction: NotificationCompat.Action = NotificationCompat.Action.Builder(
         context.resources.getIdentifier("ic_menu_call", "drawable", context.packageName),
