@@ -129,8 +129,7 @@ class IncomingCallActivity : Activity() {
         val price: TextView =
             findViewById(resources.getIdentifier("user_price_txt", "id", packageName))
 
-        val background: ImageView =
-            findViewById(resources.getIdentifier("user_background", "id", packageName))
+
         val avatar: CircleImageView =
             findViewById(resources.getIdentifier("user_avatar", "id", packageName))
         var icCall: ImageView = findViewById(resources.getIdentifier("ic_call", "id", packageName))
@@ -145,8 +144,7 @@ class IncomingCallActivity : Activity() {
             var res = applicationContext.getDrawable(imageResource);
             icCall.setImageDrawable(res)
         }
-        Glide.with(this).load(callerAvatar)
-            .into(background)
+
         Glide.with(this).load(callerAvatar)
             .into(avatar)
         callTitleTxt.text = callInitiatorName
