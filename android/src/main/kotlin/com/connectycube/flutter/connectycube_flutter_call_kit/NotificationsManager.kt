@@ -3,6 +3,8 @@ package com.connectycube.flutter.connectycube_flutter_call_kit
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
+import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -36,11 +38,16 @@ fun showCallNotification(
 
     val intent = getLaunchIntent(context)
 
+    val flags = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+        else -> FLAG_UPDATE_CURRENT
+    }
+
     val pendingIntent = PendingIntent.getActivity(
         context,
         callId.hashCode(),
         intent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+        flags
     )
 
     val ringtone: Uri = RingtoneManager.getActualDefaultRingtoneUri(
@@ -258,11 +265,15 @@ fun addCallFullScreenIntent(
         callOpponents,
         userInfo
     )
+    val flags = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+        else -> FLAG_UPDATE_CURRENT
+    }
     val fullScreenPendingIntent = PendingIntent.getActivity(
         context,
         callId.hashCode(),
         callFullScreenIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+        flags
     )
     notificationBuilder.setFullScreenIntent(fullScreenPendingIntent, true)
 }
@@ -283,13 +294,18 @@ fun addCancelCallNotificationIntent(
     bundle.putString(EXTRA_CALL_INITIATOR_NAME, callInitiatorName)
     bundle.putString(EXTRA_CALL_USER_INFO, userInfo)
 
+    val flags = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
+        else -> FLAG_UPDATE_CURRENT
+    }
+
     val deleteCallNotificationPendingIntent = PendingIntent.getBroadcast(
         appContext,
         callId.hashCode(),
         Intent(appContext, EventReceiver::class.java)
             .setAction(ACTION_CALL_NOTIFICATION_CANCELED)
             .putExtras(bundle),
-        PendingIntent.FLAG_UPDATE_CURRENT
+        flags
     )
     notificationBuilder.setDeleteIntent(deleteCallNotificationPendingIntent)
 }
