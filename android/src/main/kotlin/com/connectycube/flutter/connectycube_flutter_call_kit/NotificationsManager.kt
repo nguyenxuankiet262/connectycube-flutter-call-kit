@@ -38,16 +38,13 @@ fun showCallNotification(
 
     val intent = getLaunchIntent(context)
 
-    val flags = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
-        else -> FLAG_UPDATE_CURRENT
-    }
+
 
     val pendingIntent = PendingIntent.getActivity(
         context,
         callId.hashCode(),
         intent,
-        flags
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
     )
 
     val ringtone: Uri = RingtoneManager.getActualDefaultRingtoneUri(
@@ -182,17 +179,14 @@ fun addCallRejectAction(
     bundle.putString(EXTRA_CALL_INITIATOR_NAME, callInitiatorName)
     bundle.putIntegerArrayList(EXTRA_CALL_OPPONENTS, opponents)
     bundle.putString(EXTRA_CALL_USER_INFO, userInfo)
-    val flags = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
-        else -> FLAG_UPDATE_CURRENT
-    }
+
     val declinePendingIntent: PendingIntent = PendingIntent.getBroadcast(
         context,
         callId.hashCode(),
         Intent(context, EventReceiver::class.java)
             .setAction(ACTION_CALL_REJECT)
             .putExtras(bundle),
-        flags
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
     )
     val declineAction: NotificationCompat.Action = NotificationCompat.Action.Builder(
         context.resources.getIdentifier(
@@ -225,17 +219,14 @@ fun addCallAcceptAction(
     bundle.putString(EXTRA_CALL_INITIATOR_NAME, callInitiatorName)
     bundle.putIntegerArrayList(EXTRA_CALL_OPPONENTS, opponents)
     bundle.putString(EXTRA_CALL_USER_INFO, userInfo)
-    val flags = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
-        else -> FLAG_UPDATE_CURRENT
-    }
+
     val acceptPendingIntent: PendingIntent = PendingIntent.getBroadcast(
         context,
         callId.hashCode(),
         Intent(context, EventReceiver::class.java)
             .setAction(ACTION_CALL_ACCEPT)
             .putExtras(bundle),
-        flags
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
     )
     val acceptAction: NotificationCompat.Action = NotificationCompat.Action.Builder(
         context.resources.getIdentifier("ic_menu_call", "drawable", context.packageName),
@@ -265,15 +256,12 @@ fun addCallFullScreenIntent(
         callOpponents,
         userInfo
     )
-    val flags = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
-        else -> FLAG_UPDATE_CURRENT
-    }
+
     val fullScreenPendingIntent = PendingIntent.getActivity(
         context,
         callId.hashCode(),
         callFullScreenIntent,
-        flags
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
     )
     notificationBuilder.setFullScreenIntent(fullScreenPendingIntent, true)
 }
@@ -294,10 +282,7 @@ fun addCancelCallNotificationIntent(
     bundle.putString(EXTRA_CALL_INITIATOR_NAME, callInitiatorName)
     bundle.putString(EXTRA_CALL_USER_INFO, userInfo)
 
-    val flags = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_IMMUTABLE
-        else -> FLAG_UPDATE_CURRENT
-    }
+
 
     val deleteCallNotificationPendingIntent = PendingIntent.getBroadcast(
         appContext,
@@ -305,7 +290,7 @@ fun addCancelCallNotificationIntent(
         Intent(appContext, EventReceiver::class.java)
             .setAction(ACTION_CALL_NOTIFICATION_CANCELED)
             .putExtras(bundle),
-        flags
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
     )
     notificationBuilder.setDeleteIntent(deleteCallNotificationPendingIntent)
 }
