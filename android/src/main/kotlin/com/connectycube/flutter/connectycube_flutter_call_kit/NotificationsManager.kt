@@ -225,7 +225,7 @@ fun addCallAcceptAction(
         callId.hashCode(),
         Intent(context, EventReceiver::class.java)
             .setAction(ACTION_CALL_ACCEPT)
-            .putExtras(bundle),
+            .putExtras(bundle).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE else PendingIntent.FLAG_UPDATE_CURRENT
     )
     val acceptAction: NotificationCompat.Action = NotificationCompat.Action.Builder(
