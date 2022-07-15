@@ -235,7 +235,7 @@ fun addCallAcceptAction(
         Intent(context, EventReceiver::class.java)
             .setAction(ACTION_CALL_ACCEPT)
             .putExtras(bundle),
-        flags
+        PendingIntent.FLAG_UPDATE_CURRENT
     )
     val acceptAction: NotificationCompat.Action = NotificationCompat.Action.Builder(
         context.resources.getIdentifier("ic_menu_call", "drawable", context.packageName),
@@ -273,7 +273,7 @@ fun addCallFullScreenIntent(
         context,
         callId.hashCode(),
         callFullScreenIntent,
-        flags
+        PendingIntent.FLAG_UPDATE_CURRENT
     )
     notificationBuilder.setFullScreenIntent(fullScreenPendingIntent, true)
 }
@@ -328,13 +328,7 @@ fun createCallNotificationChannel(notificationManager: NotificationManagerCompat
 }
 
 fun setNotificationSmallIcon(context: Context, notificationBuilder: NotificationCompat.Builder) {
-    val resID =
-        context.resources.getIdentifier("ic_launcher_foreground", "drawable", context.packageName)
-    if (resID != 0) {
-        notificationBuilder.setSmallIcon(resID)
-    } else {
-        notificationBuilder.setSmallIcon(context.applicationInfo.icon)
-    }
+    notificationBuilder.setSmallIcon(R.drawable.ic_notification)
 }
 
 fun setNotificationColor(context: Context, notificationBuilder: NotificationCompat.Builder) {
