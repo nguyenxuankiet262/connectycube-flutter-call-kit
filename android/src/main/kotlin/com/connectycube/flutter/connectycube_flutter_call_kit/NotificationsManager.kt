@@ -235,7 +235,7 @@ fun addCallAcceptAction(
         Intent(context, EventReceiver::class.java)
             .setAction(ACTION_CALL_ACCEPT)
             .putExtras(bundle),
-        PendingIntent.FLAG_UPDATE_CURRENT
+        flags
     )
     val acceptAction: NotificationCompat.Action = NotificationCompat.Action.Builder(
         context.resources.getIdentifier("ic_menu_call", "drawable", context.packageName),
@@ -273,7 +273,7 @@ fun addCallFullScreenIntent(
         context,
         callId.hashCode(),
         callFullScreenIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
+        flags
     )
     notificationBuilder.setFullScreenIntent(fullScreenPendingIntent, true)
 }
