@@ -124,6 +124,8 @@ class IncomingCallActivity : Activity() {
     }
 
     private fun initUi() {
+        val isRecallTitleTxt: TextView =
+            findViewById(resources.getIdentifier("is_recall", "id", packageName))
         val callTitleTxt: TextView =
             findViewById(resources.getIdentifier("user_name_txt", "id", packageName))
         val price: TextView =
@@ -138,6 +140,10 @@ class IncomingCallActivity : Activity() {
         var caller = obj?.getString("caller")!!
         var callerObj = JSONObject(caller);
         var callerAvatar = callerObj?.getString("avatar")!!
+        var isRecall = obj?.getBoolean("is_recall")
+        if(isRecall){
+            isRecallTitleTxt.visibility = View.VISIBLE
+        }
         if(action == 22){
             var uri = "@drawable/ic_call"
             var imageResource = resources.getIdentifier(uri, null, packageName)
@@ -145,7 +151,7 @@ class IncomingCallActivity : Activity() {
             icCall.setImageDrawable(res)
         }
 
-        Glide.with(this).load(callerAvatar)
+        Glide.with(this).load(callerAvatar).placeholder(R.drawable.default_avatar)
             .into(avatar)
         callTitleTxt.text = callInitiatorName
         price.text = "${obj?.getString("pay_per_minute")} Dool / min"
