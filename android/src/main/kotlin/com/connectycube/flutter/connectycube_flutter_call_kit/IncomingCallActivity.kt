@@ -141,7 +141,7 @@ class IncomingCallActivity : Activity() {
         var callerObj = JSONObject(caller);
         var callerAvatar = callerObj?.getString("avatar")!!
         var message = obj?.getString("message")
-        if(messageId != null && messageId.isNotEmpty()){
+        if(message != null && message.isNotEmpty()){
             isRecallTitleTxt.visibility = View.VISIBLE
         }
         if(action == 22){
