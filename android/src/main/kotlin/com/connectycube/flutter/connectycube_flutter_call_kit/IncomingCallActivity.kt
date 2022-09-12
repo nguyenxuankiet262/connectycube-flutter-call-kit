@@ -140,10 +140,10 @@ class IncomingCallActivity : Activity() {
         var caller = obj?.getString("caller")!!
         var callerObj = JSONObject(caller);
         var callerAvatar = callerObj?.getString("avatar")!!
-        var message = obj?.getString("message")
-        if(message != null && message.isNotEmpty()){
+        if (obj.has("message")) {
             isRecallTitleTxt.visibility = View.VISIBLE
         }
+
         if(action == 22){
             var uri = "@drawable/ic_call"
             var imageResource = resources.getIdentifier(uri, null, packageName)
