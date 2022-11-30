@@ -124,8 +124,8 @@ class IncomingCallActivity : Activity() {
     }
 
     private fun initUi() {
-        val isRecallTitleTxt: TextView =
-            findViewById(resources.getIdentifier("is_recall", "id", packageName))
+      //  val isRecallTitleTxt: TextView =
+        //    findViewById(resources.getIdentifier("is_recall", "id", packageName))
         val callTitleTxt: TextView =
             findViewById(resources.getIdentifier("user_name_txt", "id", packageName))
         val price: TextView =
@@ -141,7 +141,7 @@ class IncomingCallActivity : Activity() {
         var callerObj = JSONObject(caller);
         var callerAvatar = callerObj?.getString("avatar")!!
         if (obj.has("message")) {
-            isRecallTitleTxt.visibility = View.VISIBLE
+           //isRecallTitleTxt.visibility = View.VISIBLE
         }
 
         if(action == 22){

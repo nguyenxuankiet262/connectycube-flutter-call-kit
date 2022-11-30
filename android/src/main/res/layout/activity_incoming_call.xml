@@ -40,7 +40,6 @@
                 android:lines="1"
                 android:paddingTop="8dp"
                 android:textColor="@android:color/white"
-
                 android:textSize="24dp"
                 tools:text="Jisoo" />
 
